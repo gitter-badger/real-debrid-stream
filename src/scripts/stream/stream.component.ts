@@ -28,10 +28,12 @@ import {NotificationService} from './notification.service';
 	`
 })
 export class StreamComponent {
-	constructor(private streamService: StreamService, private notificationService: NotificationService) { }
+	constructor(
+		private streamService: StreamService,
+		public notificationService: NotificationService
+	) {}
 
 	stream(urlToStream: string): void {
-		notificationService.notify('test');
 		if (!urlToStream) {
 			return;
 		}
@@ -43,7 +45,7 @@ export class StreamComponent {
 				this.streamService.streamOnKodi(unrestrictedLink);
 			},
 			(reject: any) => {
-				alert('A problem happened while streaming to Kodi');
+				this.notificationService.notify('A problem happened while streaming to Kodi');
 			});
 	}
 }
