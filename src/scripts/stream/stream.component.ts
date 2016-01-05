@@ -1,10 +1,11 @@
 import {Component, View} from 'angular2/core';
 import {FORM_DIRECTIVES} from 'angular2/common';
 import {StreamService} from './stream.service';
+import {NotificationService} from './notification.service';
 
 @Component({
 	selector: 'stream',
-	providers: [StreamService]
+	providers: [StreamService, NotificationService]
 })
 @View({
 	directives: [FORM_DIRECTIVES],
@@ -19,7 +20,7 @@ import {StreamService} from './stream.service';
 				[(ngModel)]="urlToStream" />
 
 			<input
-				class="btn btn-default btn-block"
+				class="btn btn-primary btn-block"
 				type="button"
 				value="Stream"
 				(click)="stream(urlToStream)">
@@ -27,9 +28,10 @@ import {StreamService} from './stream.service';
 	`
 })
 export class StreamComponent {
-	constructor(private streamService: StreamService) {}
+	constructor(private streamService: StreamService, private notificationService: NotificationService) { }
 
 	stream(urlToStream: string): void {
+		notificationService.notify('test');
 		if (!urlToStream) {
 			return;
 		}
